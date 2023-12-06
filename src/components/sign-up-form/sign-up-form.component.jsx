@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { createUserWithEmailAndPasswordFirebase, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
@@ -34,7 +34,7 @@ const SignUpForm = () => {
         }
         try {
             //Create user in firebase
-            const user = await createUserWithEmailAndPasswordFirebase(email, password);
+            const user = await createAuthUserWithEmailAndPassword(email, password);
             //Create user in firestore database and pass the user object and displayName
             const response = await createUserDocumentFromAuth(user, { displayName });
             //Reset form values
