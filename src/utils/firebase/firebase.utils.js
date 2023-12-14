@@ -1,6 +1,6 @@
 //This file contains all the firebase related code
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { onAuthStateChanged,getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import {
   getFirestore,
@@ -92,3 +92,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 }
 
 export const signOutUser = async() => await signOut(auth);
+
+
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
