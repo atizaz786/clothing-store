@@ -1,6 +1,6 @@
 //This file contains all the firebase related code
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import {
   getFirestore,
@@ -90,3 +90,5 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
     console.log('Error creating user', error.message)
   }
 }
+
+export const signOutUser = async() => await signOut(auth);
