@@ -6,7 +6,9 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc
+  setDoc,
+  collection,
+  writeBatch
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -90,8 +92,46 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
     console.log('Error creating user', error.message)
   }
 }
-
+//Sign out user
 export const signOutUser = async() => await signOut(auth);
 
-
+//Check if user is signed in
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+
+//Convert collections snapshot to map
+//Add collection and documents to firestore
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+//Create batch
+  const batch = writeBatch(db);
+//Loop through objects to add and create new document reference
+  objectsToAdd.forEach(obj => {
+    //Create new document reference
+    //If we don't pass any argument to doc, it will create a new document with a unique id
+    const newDocRef = doc(collectionRef, obj.title.toLowerCase());
+    batch.set(newDocRef, obj);
+  })
+  //Commit batch
+  await batch.commit();
+  console.log("Collection added")
+}
+
+//Convert collections snapshot to map
+export const convertCollectionsSnapshotToMap = (collections) => {
+  //Get array of documents from collections
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+    return {
+      title,
+      items,
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id
+    }
+  })
+  //Convert array to object
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {})
+}
