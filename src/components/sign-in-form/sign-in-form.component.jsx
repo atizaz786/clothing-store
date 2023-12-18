@@ -4,7 +4,7 @@ import { signInWithGoogle, createUserDocumentFromAuth, signInAuthUserWithEmailAn
 import FormInput from '../form-input/form-input.component';
 import Button, {BUTTON_TYPES} from '../button/button.component';
 
-import './sign-in-form.styles.scss';
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
 import { UserContext } from '../../contexts/user.context';
 
 const defaultFormValues = {
@@ -54,7 +54,7 @@ const SignInForm = () => {
     }
 
     return (
-        <div className='sign-up-container'>
+        <SignInContainer>
             <h2>Already have any account?</h2>
             <span>Sign In with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -66,13 +66,13 @@ const SignInForm = () => {
 
                 <FormInput label="Password" type="password" name="password" required onChange={handleChange} value={password} />
 
-                <div className='buttons-container'>
+                <ButtonsContainer>
                     <Button type="submit" >Sign In</Button>
                     <Button type="button" onClick={signInWithGooglePopUp} buttonType={BUTTON_TYPES?.google} >Google sign in </Button>
 
-                </div>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     )
 }
 
