@@ -1,5 +1,5 @@
-Clothing Store - A React and Firebase Web Application 🛍️
-Description
+# Clothing Store - A React and Firebase Web Application 🛍️
+# Description
 Welcome to the Clothing Store! 🌟 This is a vibrant e-commerce web application crafted with React and Firebase. It's not just a store; it's a showcase of modern web development with a range of exciting features:
 
 Modular Components 🧩: Dive into our UI built with React's component-based architecture. Expect everything from stylish buttons to intuitive form inputs and captivating product cards.
