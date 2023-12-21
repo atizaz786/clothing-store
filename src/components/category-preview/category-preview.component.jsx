@@ -1,4 +1,4 @@
-
+import {React} from 'react'
 import { CategoryPreviewContainer, TitleContainer, PreviewContainer } from './category-preview.styles'
 
 import ProductCard from '../product-card/product-card.component'

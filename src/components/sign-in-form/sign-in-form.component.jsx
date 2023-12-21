@@ -1,11 +1,14 @@
-import { React, useState, useContext } from 'react';
+import { React, useState } from 'react';
 import { signInWithGoogle, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
 import FormInput from '../form-input/form-input.component';
 import Button, {BUTTON_TYPES} from '../button/button.component';
+import { setCurrentUser } from '../../store/user/user.action';
+
+import { useDispatch } from 'react-redux';
 
 import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
-import { UserContext } from '../../contexts/user.context';
+
 
 const defaultFormValues = {
 
@@ -16,11 +19,11 @@ const defaultFormValues = {
 
 
 const SignInForm = () => {
+    const dispatch = useDispatch();
 
     const [formValues, setFormValues] = useState(defaultFormValues);
     const { email, password } = formValues;
 
-    const { setCurrentUser } = useContext(UserContext);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -40,7 +43,7 @@ const SignInForm = () => {
         try {
             const {user} = await signInAuthUserWithEmailAndPassword(email, password);
             console.log(user)
-            setCurrentUser(user);
+            dispatch(setCurrentUser(user));
             setFormValues(defaultFormValues);
 
         }
