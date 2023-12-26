@@ -97,8 +97,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 //Sign out user
 export const signOutUser = async() => await signOut(auth);
 
-//Check if user is signed in
-export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
 
 
 //Convert collections snapshot to map
@@ -148,4 +147,17 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   }, {})
+}
+
+//Check if user is signed in
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+ return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, 
+      (userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject)
+  })
 }
